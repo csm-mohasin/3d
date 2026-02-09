@@ -1,0 +1,109 @@
+.glass-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+      145deg,
+      rgba(15, 23, 42, 0.96),
+      rgba(15, 23, 42, 0.9)
+    ),
+    radial-gradient(
+      circle at 0 0,
+      rgba(148, 163, 184, 0.25),
+      transparent 55%
+    );
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  transform-origin: center center;
+  transition:
+    transform 260ms cubic-bezier(0.21, 0.85, 0.32, 0.98),
+    box-shadow 260ms ease,
+    border-color 260ms ease,
+    background 260ms ease;
+  backdrop-filter: blur(24px);
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(
+    from 160deg,
+    rgba(148, 163, 184, 0.1),
+    transparent,
+    transparent,
+    rgba(79, 70, 229, 0.16),
+    transparent,
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 260ms ease;
+  pointer-events: none;
+}
+
+.glass-card-inner {
+  position: relative;
+  padding: 1.6rem 1.55rem;
+  border-radius: calc(var(--radius-lg) - 6px);
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: radial-gradient(
+      circle at 0 0,
+      rgba(148, 163, 184, 0.16),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 100% 0,
+      rgba(79, 70, 229, 0.35),
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at 50% 120%,
+      rgba(15, 23, 42, 0.9),
+      rgba(15, 23, 42, 1)
+    );
+}
+
+.glass-card:hover {
+  transform: translateY(-6px) scale(1.015);
+  box-shadow:
+    0 32px 80px rgba(15, 23, 42, 0.95),
+    0 0 0 1px rgba(148, 163, 184, 0.55);
+  border-color: rgba(209, 213, 219, 0.7);
+}
+
+.glass-card:hover::before {
+  opacity: 1;
+}
+
+/* Slightly tighter cards for some sections */
+
+.about-card .glass-card-inner,
+.skills-card .glass-card-inner,
+.contact-card .glass-card-inner {
+  padding: 1.6rem 1.5rem 1.8rem;
+}
+
+.project-card .glass-card-inner {
+  padding: 1.3rem 1.35rem 1.5rem;
+}
+
+/* Hover effects on touch devices should be calmer */
+
+@media (pointer: coarse) {
+  .glass-card {
+    transition:
+      transform 200ms ease,
+      box-shadow 200ms ease,
+      border-color 200ms ease,
+      background 200ms ease;
+  }
+
+  .glass-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 55px rgba(15, 23, 42, 0.9);
+  }
+
+  .glass-card::before {
+    display: none;
+  }
+}
